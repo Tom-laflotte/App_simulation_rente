@@ -7,6 +7,23 @@ from calcul_rentes import (
     dico_grille_prudent,
 )
 
+# Création d'un mot de passe pour le site 
+def check_password():
+    if "password_ok" not in st.session_state:
+        st.session_state.password_ok = False
+
+    if not st.session_state.password_ok:
+        pwd = st.text_input("Mot de passe", type="password")
+        if st.button("Connexion"):
+            if pwd == st.secrets["password"]:
+                st.session_state.password_ok = True
+                st.rerun()
+            else:
+                st.error("Mot de passe incorrect")
+        st.stop()
+
+check_password()
+
 st.set_page_config(page_title="Simulateur de Rente", layout="wide")
 st.title("Simulateur de Rente PER")
 
